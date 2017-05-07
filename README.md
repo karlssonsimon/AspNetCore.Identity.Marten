@@ -44,4 +44,4 @@ public class User : MartenUser
 }
 ```
      
-Currently the only supported type of `Id` of `MartenUser` and `MartenRole` is `Guid`.
+Currently the only supported type of `Id` for `MartenUser` and `MartenRole` is `Guid`.
