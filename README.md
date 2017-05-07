@@ -2,7 +2,7 @@
 ASP.NET Core identity provider for Marten.
 
 ## Getting started
-**Add the `https://www.myget.org/F/aspnetcore-identity-marten/api/v3/index.json` myget repository to your nuget sources.** This can be done by adding a `NuGet.config` to the root of your project:
+Add the `https://www.myget.org/F/aspnetcore-identity-marten/api/v3/index.json` myget repository to your nuget sources. This can be done by adding a `NuGet.config` to the root of your project:
 
     <?xml version="1.0" encoding="utf-8"?>
     <configuration>
@@ -17,22 +17,24 @@ The package can then be installed with:
     Install-Package AspNetCore.Identity.Marten
     
 You can then use it by registering it in `ConfigureServices`:
+
+```csharp    
+public void ConfigureServices(IServiceCollection services)
+{
+    ...
+    services.AddScoped<IUserStore<User>, MartenUserStore<User, MartenRole>>();
+    services.AddScoped<IRoleStore<MartenRole>, MartenRoleStore>();
+    services.AddIdentity<User, MartenRole>();
+    ...
+}```
     
-    public void ConfigureServices(IServiceCollection services)
-    {
-        ...
-        services.AddScoped<IUserStore<User>, MartenUserStore<User, MartenRole>>();
-        services.AddScoped<IRoleStore<MartenRole>, MartenRoleStore>();
-        services.AddIdentity<User, MartenRole>();
-        ...
-    }
-    
- Where `User` would be:
- 
-     public class User : MartenUser
-     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-     }
+Where `User` would be:
+
+```csharp
+public class User : MartenUser
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+}```
      
 Currently the only supported type of `Id` of `MartenUser` and `MartenRole` is `Guid`.
