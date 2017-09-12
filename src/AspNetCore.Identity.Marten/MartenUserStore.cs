@@ -314,7 +314,7 @@ namespace AspNetCore.Identity.Marten
                 .Where(user => user.Claims.Any(c => c.Claimtype == claim.Type && c.ClaimValue == claim.Value))
                 .ToListAsync(cancellationToken);
 
-            return users;
+            return users.ToList();
         }
 
         public Task SetPasswordHashAsync(TUser user, string passwordHash, CancellationToken cancellationToken)
@@ -691,7 +691,9 @@ namespace AspNetCore.Identity.Marten
                 throw new ArgumentNullException(nameof(roleName));
             }
 
-            return await Users.Where(user => user.Roles.Contains(roleName)).ToListAsync(token: cancellationToken);
+            var result = await Users.Where(user => user.Roles.Contains(roleName)).ToListAsync(token: cancellationToken);
+
+            return result.ToList();
         }
 
         public Task SetTokenAsync(TUser user, string loginProvider, string name, string value,
