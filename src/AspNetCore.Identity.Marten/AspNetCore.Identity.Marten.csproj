@@ -6,7 +6,7 @@
     <VersionPrefix>0.3.0</VersionPrefix>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Marten" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.0" />
+    <PackageReference Include="Marten" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
   </ItemGroup>
 </Project>
