@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7D6D1A34-D38
 EndProject
 Project("{3D9E79AA-B106-4938-AE9B-1BC72C7433F6}") = "AspNetCore.Identity.Marten", "src\AspNetCore.Identity.Marten\AspNetCore.Identity.Marten.csproj", "{E21A4040-5518-483D-8FD6-DE8AD2183189}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2B7EB7DE-F1E7-455F-98AD-A11496F62AC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Identity.Marten.Test", "test\AspNetCore.Identity.Marten.Test\AspNetCore.Identity.Marten.Test.csproj", "{B2C16278-9BF7-473E-9158-5E6732D73B8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +21,16 @@ Global
 		{E21A4040-5518-483D-8FD6-DE8AD2183189}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E21A4040-5518-483D-8FD6-DE8AD2183189}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E21A4040-5518-483D-8FD6-DE8AD2183189}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2C16278-9BF7-473E-9158-5E6732D73B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2C16278-9BF7-473E-9158-5E6732D73B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2C16278-9BF7-473E-9158-5E6732D73B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2C16278-9BF7-473E-9158-5E6732D73B8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E21A4040-5518-483D-8FD6-DE8AD2183189} = {7D6D1A34-D380-49E5-84AF-BCC2698F077C}
+		{B2C16278-9BF7-473E-9158-5E6732D73B8F} = {2B7EB7DE-F1E7-455F-98AD-A11496F62AC7}
 	EndGlobalSection
 EndGlobal

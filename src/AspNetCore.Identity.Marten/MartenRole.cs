@@ -14,6 +14,16 @@ namespace AspNetCore.Identity.Marten
         {
             Name = roleName;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is MartenRole other)
+            {
+                return other.Id == Id;
+            }
+            
+            return false;
+        }
     }
 
     public class MartenRole<TKey> : MartenRole<TKey, MartenRoleClaim>

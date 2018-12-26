@@ -9,6 +9,16 @@ namespace AspNetCore.Identity.Marten
         {
             Id = Guid.NewGuid();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is MartenUser other)
+            {
+                return other.Id == Id;
+            }
+
+            return false;
+        }
     }
 
     public class MartenUser<TKey> where TKey : IEquatable<TKey>

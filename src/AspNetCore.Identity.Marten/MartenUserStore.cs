@@ -11,7 +11,9 @@ namespace AspNetCore.Identity.Marten
 {
     public class MartenUserStore : MartenUserStore<MartenUser, MartenRole>
     {
-        public MartenUserStore(IDocumentSession documentSession) : base(documentSession) { }
+        public MartenUserStore(IDocumentSession documentSession) : base(documentSession)
+        {
+        }
     }
 
     public class MartenUserStore<TUser, TRole> :
@@ -166,6 +168,7 @@ namespace AspNetCore.Identity.Marten
             {
                 throw new ArgumentNullException(nameof(user));
             }
+
             if (login == null)
             {
                 throw new ArgumentNullException(nameof(login));
@@ -244,6 +247,7 @@ namespace AspNetCore.Identity.Marten
             {
                 throw new ArgumentNullException(nameof(user));
             }
+
             if (claims == null)
             {
                 throw new ArgumentNullException(nameof(claims));
@@ -267,10 +271,12 @@ namespace AspNetCore.Identity.Marten
             {
                 throw new ArgumentNullException(nameof(user));
             }
+
             if (claim == null)
             {
                 throw new ArgumentNullException(nameof(claim));
             }
+
             if (newClaim == null)
             {
                 throw new ArgumentNullException(nameof(newClaim));
@@ -357,6 +363,7 @@ namespace AspNetCore.Identity.Marten
             {
                 throw new ArgumentNullException(nameof(user));
             }
+
             if (stamp == null)
             {
                 throw new ArgumentNullException(nameof(stamp));
@@ -654,18 +661,22 @@ namespace AspNetCore.Identity.Marten
 
             if (role != null)
             {
-                user.Roles.Remove(role.Name);
+                user.Roles.Remove(role.NormalizedName);
             }
         }
 
-        public Task<IList<string>> GetRolesAsync(TUser user, CancellationToken cancellationToken)
+        public async Task<IList<string>> GetRolesAsync(TUser user, CancellationToken cancellationToken)
         {
             if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            return Task.FromResult(user.Roles);
+            var roles = await Roles.Where(role => user.Roles.Contains(role.NormalizedName))
+                .Select(role => role.Name)
+                .ToListAsync(token: cancellationToken);
+
+            return roles.ToList();
         }
 
         public async Task<bool> IsInRoleAsync(TUser user, string normalizedRoleName,
@@ -681,7 +692,7 @@ namespace AspNetCore.Identity.Marten
             var role = await Roles.FirstOrDefaultAsync(r => r.NormalizedName == normalizedRoleName,
                 token: cancellationToken);
 
-            return user.Roles.Contains(role.Name);
+            return user.Roles.Contains(role.NormalizedName);
         }
 
         public async Task<IList<TUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
@@ -696,7 +707,7 @@ namespace AspNetCore.Identity.Marten
             return result.ToList();
         }
 
-        public Task SetTokenAsync(TUser user, string loginProvider, string name, string value,
+        public async Task SetTokenAsync(TUser user, string loginProvider, string name, string value,
             CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -722,8 +733,6 @@ namespace AspNetCore.Identity.Marten
                     ProviderKey = value
                 });
             }
-
-            return Task.CompletedTask;
         }
 
         public Task RemoveTokenAsync(TUser user, string loginProvider, string name, CancellationToken cancellationToken)
@@ -735,7 +744,7 @@ namespace AspNetCore.Identity.Marten
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var login = user.Logins.FirstOrDefault(l => l.ProviderKey == loginProvider &&
+            var login = user.Logins.FirstOrDefault(l => l.LoginProvider == loginProvider &&
                                                         l.ProviderDisplayName == name);
 
             if (login != null)
@@ -756,7 +765,7 @@ namespace AspNetCore.Identity.Marten
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var login = user.Logins.FirstOrDefault(l => l.ProviderKey == loginProvider &&
+            var login = user.Logins.FirstOrDefault(l => l.LoginProvider == loginProvider &&
                                                         l.ProviderDisplayName == name);
 
             return Task.FromResult(login?.ProviderKey);
