@@ -24,6 +24,11 @@ namespace AspNetCore.Identity.Marten
             
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 
     public class MartenRole<TKey> : MartenRole<TKey, MartenRoleClaim>

@@ -19,6 +19,11 @@ namespace AspNetCore.Identity.Marten
 
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 
     public class MartenUser<TKey> where TKey : IEquatable<TKey>

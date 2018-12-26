@@ -707,7 +707,7 @@ namespace AspNetCore.Identity.Marten
             return result.ToList();
         }
 
-        public async Task SetTokenAsync(TUser user, string loginProvider, string name, string value,
+        public Task SetTokenAsync(TUser user, string loginProvider, string name, string value,
             CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -733,6 +733,8 @@ namespace AspNetCore.Identity.Marten
                     ProviderKey = value
                 });
             }
+
+            return Task.CompletedTask;
         }
 
         public Task RemoveTokenAsync(TUser user, string loginProvider, string name, CancellationToken cancellationToken)
